@@ -1,13 +1,15 @@
 class IdeasController < ApplicationController
-  before_action :set_idea, only: %i[ show edit update destroy ]
+  before_action :set_idea, only: %i[show edit update destroy]
 
   # GET /ideas
   def index
-    @ideas = Idea.all
+    @ideas = Idea.order(created_at: :desc)
   end
 
   # GET /ideas/1
   def show
+    @reviews = @idea.reviews.order(created_at: :desc)
+    @review = Review.new
   end
 
   # GET /ideas/new
@@ -22,17 +24,18 @@ class IdeasController < ApplicationController
   # POST /ideas
   def create
     @idea = Idea.new(idea_params)
+    @idea.user = current_user
 
-    respond_to do |format|
+    respond_to do
       if @idea.save
-        format.html { redirect_to idea_url(@idea), notice: "Idea was successfully created." }
+        redirect_to idea_url(@idea), notice: "Idea was successfully created." 
       else
-        format.html { render :new, status: :unprocessable_entity }
+        render :new, status: :unprocessable_entity 
       end
     end
   end
 
-  # PATCH/PUT /ideas/1 or /ideas/1.json
+  # PATCH/PUT /ideas/1
   def update
     respond_to do |format|
       if @idea.update(idea_params)
@@ -43,7 +46,7 @@ class IdeasController < ApplicationController
     end
   end
 
-  # DELETE /ideas/1 or /ideas/1.json
+  # DELETE /ideas/1
   def destroy
     @idea.destroy
 

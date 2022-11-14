@@ -3,7 +3,7 @@
 
 
 Idea.destroy_all
-# Review.destroy_all
+Review.destroy_all
 User.destroy_all
 
 PASSWORD = "123456"
@@ -27,16 +27,22 @@ users = User.all
 50.times do 
     created_at = Faker::Date.backward(days: 365 * 2)
 
-        Idea.create(
+        i = Idea.create(
         title: Faker::Company.bs,
         description: Faker::Lorem.paragraph(sentence_count: 6, supplemental: true),
         created_at: created_at,
         updated_at: created_at,
         user: users.sample
-    )  
+    ) 
     
+    if i.valid?
+        rand(1..5).times do
+            Review.create(body: Faker::Movies::BackToTheFuture.quote, idea: i)
+        end
+    end   
 end
 
 
 ideas = Idea.all
-# reviews = Review.all
+reviews = Review.all
+p reviews
