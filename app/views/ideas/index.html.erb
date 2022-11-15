@@ -1,0 +1,22 @@
+
+<div class="container" >
+<h1>Ideas</h1>
+
+<div id="ideas">
+  <div class="card">
+      <% @ideas.each do |idea| %>
+    <div class="card-body">
+   <h3> <%= link_to idea.title, idea_path(idea.id) %></h3>
+        
+        <p><%= idea.description %></p>
+        <p> <strong>Liked by:</strong> <%= idea.likes.count %> <p>
+          
+        <small> By <%= idea.user.first_name %> </small>
+
+     </div>
+     <hr>
+      <% end %>
+  </div>
+</div>
+
+</div>

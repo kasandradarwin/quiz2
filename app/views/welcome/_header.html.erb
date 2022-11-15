@@ -1,0 +1,29 @@
+<div class="container"> 
+<nav class="navbar navbar-light navbar-expand bg-light justify-content-between ">
+   <a class="navbar-brand" href="/"> 🧠 Idea Factory</a>
+
+    <% if user_signed_in? %>
+      <div> 👋 Hey, <%= current_user.first_name %>!</div>
+     <% else %>
+     <div> 👋 Welcome!</div>
+     <% end %> 
+
+
+   <div class="navbar-nav">
+
+        <%= link_to "Home", root_path, class: "nav-item nav-link" %>
+        
+  <% if user_signed_in? %>
+        <%= link_to "New idea", new_idea_path, class: "nav-item nav-link" %>
+        <%= button_to "Logout", session_path, method: :delete,
+            data: {confirm: "are you sure you want to log out?"}, class: 'btn btn-default nav-link'%>
+  <% else %>
+        <%= link_to "Login", new_session_path, class: "nav-item nav-link" %> 
+        <%= link_to "Sign Up", new_user_path, class: "nav-item nav-link" %>
+    <% end %>
+  </div>
+  
+</nav>
+
+</div>
+
