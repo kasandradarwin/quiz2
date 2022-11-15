@@ -6,7 +6,7 @@
   <% @ideas.each do |idea| %>
     <%= render idea %>
     <p>
-      <%= link_to "Show this idea", idea %>
+      <%= link_to "Show this idea", idea_path(idea.id) %>
     </p>
   <% end %>
 </div>

@@ -1,21 +1,23 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @idea %>
- <small>By <%= @user %> </small>
+ <small>By <%= @idea.user.first_name %> </small>
 
 <div>
   <%= link_to "Edit this idea", edit_idea_path(@idea) %> |
   <%= link_to "Back to ideas", ideas_path %>
-
+<% if current_user == @idea.user %>
   <%= button_to "Destroy this idea", @idea, method: :delete %>
+<%end %>
 </div>
-
+<br>
+<hr>
 <h3>Reviews</h3>
 
 <%= form_with(model:[@idea, @review]) do |f| %>
   <div>
     <br>
-    <%= f.text_area :body, cols: 50, rows: 3, placeholder: "Whats on your mind?" %> 
+    <%= f.text_area :description, cols: 50, rows: 3, placeholder: "What's your review?" %> 
   </div>
   <%= f.submit "Submit", class:"btn btn-outline-primary" %>
   <br>
@@ -24,13 +26,12 @@
 <br>
 <div id="reviews">
   <% @reviews.each do |review| %>
-    <%= review.body %>
-    <div class="d-flex flex-row">
-    <div class="p-2"> <small>reviewed <%= time_ago_in_words(review.created_at)%> ago by <%= review.user.first_name%></small></div>
+    <%=review.description %>
+    <small>By <%= review.user.first_name %> </small>
+  
     <% if current_user == review.user %>
-      <div class="p-2"> <%= button_to " • Delete", idea_review_path(@idea.id, review.id), method: :delete, class: 'btn1' %></div>
+      <div class="p-2"> <%= button_to "Delete this review?", idea_review_path(@idea.id, review.id), method: :delete, class: 'btn btn-outline-primary btn-sm' %></div>
     <% end %>
-    </div> 
-</div>
+   
  
 <% end %>

@@ -37,7 +37,7 @@ users = User.all
     
     if i.valid?
         rand(1..5).times do
-            Review.create(body: Faker::Movies::BackToTheFuture.quote, idea: i)
+            Review.create(description: Faker::Movies::BackToTheFuture.quote, idea: i)
         end
     end   
 end
@@ -45,4 +45,5 @@ end
 
 ideas = Idea.all
 reviews = Review.all
+p ideas
 p reviews

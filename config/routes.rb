@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
-  resources :ideas
-  resource :user
-  resources :users, only: [:new, :create]
+  # resources :ideas
+  # resources :reviews
+
+  # resource :user
+  resources :user_signed_in
+  resources :users
   resource :session, only: [:new, :destroy, :create]
 
 
@@ -13,6 +16,6 @@ Rails.application.routes.draw do
 
 
   resources :ideas do
-    resources :reviews, only: [:create, :destroy]
+    resources :reviews, only: [:new, :create, :destroy]
   end
 end

@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     @user = current_user
     
     if @user.update(user_params)
-      flash[:success] = "username/password successfully updated"
+      flash[:success] = "Username/password successfully updated"
       redirect_to edit_user_path @user
     else
       flash[:error] = "Something went wrong"
