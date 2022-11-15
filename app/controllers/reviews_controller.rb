@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
     before_action :set_review, only: [:show, :edit, :update, :destroy]
-    # before_action :authenticate_user!, except: [:index, :show]
-    # before_action :authorize_user!, only: [:destroy]
+    before_action :authenticate_user!, except: [:index, :show]
+    before_action :authorize_user!, only: [:destroy]
   
     # idea /reviews
     def create
@@ -24,14 +24,13 @@ class ReviewsController < ApplicationController
     def destroy
       @review = Review.find(params[:id])
       @idea = Idea.find(params[:idea_id])
-  
-    #   if can?(:crud, @review)
+      if can?(:crud, @review)
         @review.destroy
         redirect_to idea_path
         flash[:success] = 'Answer deleted'
-    #   else
-    #     redirect_to root_path, alert: 'Not Authorized to change answer!'
-    #   end
+      else
+        redirect_to root_path, alert: 'Not Authorized to change answer!'
+      end
     end
   
     private
@@ -43,7 +42,7 @@ class ReviewsController < ApplicationController
   
     # Only allow a list of trusted parameters through.
     def review_params
-      params.require(:review).permit(:body)
+      params.require(:review).permit(:description)
     end
   
     def authorize_user!

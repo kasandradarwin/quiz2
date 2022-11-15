@@ -8,6 +8,14 @@ User.destroy_all
 
 PASSWORD = "123456"
 
+super_user = User.create(
+    first_name: "Admin",
+    last_name: "User",
+    email: "admin@user.com",
+    password: PASSWORD,
+    admin?: true
+)
+
 
 10.times do
     p "create users"
@@ -19,6 +27,7 @@ PASSWORD = "123456"
     last_name: last_name,
     email: "#{first_name}@#{last_name}.com",
     password: PASSWORD,
+    admin?: false
     )
 end
 

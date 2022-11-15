@@ -2,8 +2,8 @@ class IdeasController < ApplicationController
   before_action :find_idea, only: [:edit, :update, :show, :destroy]
   before_action :set_idea, only: [:show, :edit, :update, :destroy]
 
-  # before_action :authenticate_user!, except: [:index, :show ]
-  # before_action :authorize_user!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show ]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   # GET /ideas
   def index
@@ -15,6 +15,7 @@ class IdeasController < ApplicationController
      @reviews = @idea.reviews.order(created_at: :desc)
     @review = Review.new
     @user = current_user
+    @like = @idea.likes.find_by(user: current_user)
     # raise
   end
 
