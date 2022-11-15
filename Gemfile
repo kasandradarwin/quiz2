@@ -7,7 +7,9 @@ ruby "3.0.0"
 gem "rails", "~> 7.0.4"
 
 # rspec for testing
-gem 'rspec-rails'
+gem "rspec-rails"
+gem "factory_bot_rails"
+gem "rails-controller-testing"
 
 # to populate the ideas/db
 gem "faker"

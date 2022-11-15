@@ -23,7 +23,25 @@
 </div>
 <br>
 <hr>
+
+
 <h3>Reviews</h3>
+<br>
+<div id="reviews">
+
+  <% @reviews.each do |review| %>
+    <%=review.description %>
+    <br>
+    <br>
+    <small>Reviewed By <%= review.user.first_name %> </small>
+  <br>
+    <% if current_user == review.user %>
+      <div class="p-2"> <%= button_to "Delete this review?", idea_review_path(@idea.id, review.id), method: :delete, class: 'btn btn-outline-primary btn-sm' %></div>
+    <% end %>
+  <hr>
+   
+ 
+<% end %>
 
 <%= form_with(model:[@idea, @review]) do |f| %>
   <div>
@@ -32,17 +50,4 @@
   </div>
   <%= f.submit "Submit", class:"btn btn-outline-primary" %>
   <br>
-<% end %>
-
-<br>
-<div id="reviews">
-  <% @reviews.each do |review| %>
-    <%=review.description %>
-    <small>By <%= review.user.first_name %> </small>
-  
-    <% if current_user == review.user %>
-      <div class="p-2"> <%= button_to "Delete this review?", idea_review_path(@idea.id, review.id), method: :delete, class: 'btn btn-outline-primary btn-sm' %></div>
-    <% end %>
-   
- 
 <% end %>
