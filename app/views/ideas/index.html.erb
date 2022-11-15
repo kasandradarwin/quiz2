@@ -1,14 +1,22 @@
-<p style="color: green"><%= notice %></p>
 
+<div class="container" >
 <h1>Ideas</h1>
 
 <div id="ideas">
-  <% @ideas.each do |idea| %>
-    <%= render idea %>
-    <p>
-      <%= link_to "Show this idea", idea_path(idea.id) %>
-    </p>
-  <% end %>
+  <div class="card">
+      <% @ideas.each do |idea| %>
+    <div class="card-body">
+   <h3> <%= link_to idea.title, idea_path(idea.id) %></h3>
+        
+        <p><%= idea.description %></p>
+        <p> <strong>Liked by:</strong> <%= idea.likes.count %> <p>
+          
+        <small> By <%= idea.user.first_name %> </small>
+
+     </div>
+     <hr>
+      <% end %>
+  </div>
 </div>
 
-<%= link_to "New idea", new_idea_path %>
+</div>

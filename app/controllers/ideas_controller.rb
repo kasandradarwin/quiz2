@@ -8,6 +8,7 @@ class IdeasController < ApplicationController
   # GET /ideas
   def index
     @ideas = Idea.order(created_at: :desc)
+    
   end
 
   # GET /ideas/1
@@ -32,23 +33,23 @@ class IdeasController < ApplicationController
   def create
     @idea = Idea.new(idea_params)
     @idea.user = current_user
+p "******** create *********" 
 
-    respond_to do
       if @idea.save
-        redirect_to idea_url(@idea), notice: "Idea was successfully created." 
+        redirect_to idea_path(@idea), notice: "Idea was successfully created." 
       else
         render :new, status: :unprocessable_entity 
       end
     end
-  end
+  
 
   # PATCH/PUT /ideas/1
   def update
-    respond_to do |format|
+    respond_to do 
       if @idea.update(idea_params)
-        format.html { redirect_to idea_url(@idea), notice: "Idea was successfully updated." }
+         redirect_to idea_url(@idea), notice: "Idea was successfully updated." 
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        render :edit, status: :unprocessable_entity 
       end
     end
   end
